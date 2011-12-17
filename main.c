@@ -45,7 +45,7 @@ static double golden_sect_srch() {
 	double xl, xu, es;
 	int i_max;
 
-	double x_opt;
+	double x_opti;
 	double d, x1, x2;
 
 	printf(">> xl = ");
@@ -68,7 +68,7 @@ static double golden_sect_srch() {
 	x1 = xl + d;
 	x2 = xu - d;
 
-	x_opt = 0;
+	x_opti = 0;
 
 	for (i=0;i<i_max;i++) {
 		if (eval_func(x1) > eval_func(x2)) {
@@ -76,19 +76,19 @@ static double golden_sect_srch() {
 			x2 = x1;
 			x1 = xl + gd_rat*(xu - xl);
 
-			x_opt = x1;
+			x_opti = x1;
 		} else {
 			xu = x1;
 			x1 = x2;
 			x2 = xu - gd_rat*(xu - xl);
 
-			x_opt = x2;
+			x_opti = x2;
 		}
 
 		if (i != 0 && fabs((1 - gd_rat)/(xu - xl)) < es) break;
 	}
 
-	return x_opt;
+	return x_opti;
 }
 
 static double quadratic_interpolation() {
@@ -97,7 +97,7 @@ static double quadratic_interpolation() {
 	double x0, x1, x2, es;
 	int i_max;
 
-	double x_opt, old_x_opt;
+	double x_opti, old_x_opt;
 
 	printf(">> x0 = ");
 	scanf("%lf", &x0);
@@ -118,31 +118,31 @@ static double quadratic_interpolation() {
 	i_max = 10000;
 	*/
 
-	old_x_opt = x_opt = 0;
+	old_x_opt = x_opti = 0;
 
 	for (i=0;i<i_max;i++) {
-		x_opt = (eval_func(x0)*(x1*x1 - x2*x2) + eval_func(x1)*(x2*x2 - x0*x0) + eval_func(x2)*(x0*x0 - x1*x1))
+		x_opti = (eval_func(x0)*(x1*x1 - x2*x2) + eval_func(x1)*(x2*x2 - x0*x0) + eval_func(x2)*(x0*x0 - x1*x1))
 			/ (2*(eval_func(x0)*(x1 - x2) + eval_func(x1)*(x2 - x0) + eval_func(x2)*(x0 - x1)));
 
-		if (x_opt > x1) {
+		if (x_opti > x1) {
 			x0 = x1;
-			x1 = x_opt;
+			x1 = x_opti;
 		} else {
-			x1 = x_opt;
+			x1 = x_opti;
 			x2 = x1;
 		}
 
-		if (i != 0 && fabs((x_opt - old_x_opt)/x_opt) < es) break;
+		if (i != 0 && fabs((x_opti - old_x_opt)/x_opti) < es) break;
 
-		old_x_opt = x_opt;
+		old_x_opt = x_opti;
 	}
 
-	return x_opt;
+	return x_opti;
 }
 
 int main(void) {
 	int choice;
-	double x_opt;
+	double x_opti;
 
 	init_golden_ratio();
 
@@ -164,9 +164,9 @@ int main(void) {
 		if (choice < 1 || choice > 3) continue;
 
 		if (choice == 3) break;
-		x_opt = (choice == 1 ? golden_sect_srch : quadratic_interpolation)();
+		x_opti = (choice == 1 ? golden_sect_srch : quadratic_interpolation)();
 
-		printf("* Found optimum = %f (x = %f)\n", eval_func(x_opt), x_opt);
+		printf("* Found optimum = %f (x = %f)\n", eval_func(x_opti), x_opti);
 		printf("----\n");
 	}
 
