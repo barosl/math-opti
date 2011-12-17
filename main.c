@@ -3,10 +3,10 @@
 
 #define MAX_COEFFS 11
 
-double func_coeffs[MAX_COEFFS];
-int func_order;
+static double func_coeffs[MAX_COEFFS];
+static int func_order;
 
-double gd_rat;
+static double gd_rat;
 static void init_golden_ratio() {
 	gd_rat = (sqrt(5)-1)/2;
 }
@@ -26,7 +26,7 @@ static int input_func() {
 	return 0;
 }
 
-double eval_func(double x) {
+static double eval_func(double x) {
 	int i;
 
 	double sum = 0;
