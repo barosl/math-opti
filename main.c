@@ -14,11 +14,11 @@ static void init_golden_ratio() {
 static int input_func() {
 	int i;
 
-	printf("Order: ");
+	printf("> Order: ");
 	if (scanf("%d", &func_order) != 1) return -1;
 	if (func_order < 0 || func_order >= MAX_COEFFS) return -1;
 
-	printf("Coefficients: ");
+	printf("> Coefficients: ");
 	for (i=func_order;i>=0;i--) {
 		if (scanf("%lf", &func_coeffs[i]) != 1) return -1;
 	}
@@ -166,7 +166,7 @@ int main(void) {
 		if (choice == 3) break;
 		x_opt = (choice == 1 ? golden_sect_srch : quadratic_interpolation)();
 
-		printf("Found optimum = %f (x = %f)\n", eval_func(x_opt), x_opt);
+		printf("* Found optimum = %f (x = %f)\n", eval_func(x_opt), x_opt);
 		printf("----\n");
 	}
 
